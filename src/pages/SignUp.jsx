@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import signinIcon from "../assest/signin.gif";
 import { FaEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 import { FaEyeSlash } from "react-icons/fa";
 import { ImageToBase64 } from "../helpers/ImageToBase64";
+import SummaryApi from "../common";
 
 const SignUp = () => {
   // Toogle For password show and hide
@@ -18,6 +19,8 @@ const SignUp = () => {
     profilePic: "",
   });
 
+
+
   const handleonChange = (e) => {
     const { name, value } = e.target;
 
@@ -28,6 +31,9 @@ const SignUp = () => {
       };
     });
   };
+
+
+
 
   const handleUploadPic = async (e) => {
     const file = e.target.files[0];
@@ -43,11 +49,23 @@ const SignUp = () => {
 
   }
 
+
+
   console.log("Signup Data", data);
 
-  const handleSubmit = (e) => {
+
+
+  const handleSubmit =async (e) => {
     e.preventDefault();
+    await axios.post(SummaryApi.signUp.url,{
+      body:JSON.stringify(data)
+    })
+
   };
+
+
+
+
 
   return (
     <section id="signup">
