@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import signinIcon from "../assest/signin.gif";
 import { FaEye } from "react-icons/fa";
-import { Link, json } from "react-router-dom";
+import { Link, json, useNavigate } from "react-router-dom";
 import { FaEyeSlash } from "react-icons/fa";
 import { ImageToBase64 } from "../helpers/ImageToBase64";
 import SummaryApi from "../common";
+import axios from "axios"
+import { toast } from "react-toastify";
+
 
 const SignUp = () => {
   // Toogle For password show and hide
@@ -19,7 +22,7 @@ const SignUp = () => {
     profilePic: "",
   });
 
-
+  const navigate =useNavigate();
 
   const handleonChange = (e) => {
     const { name, value } = e.target;
@@ -32,40 +35,50 @@ const SignUp = () => {
     });
   };
 
-
-
-
   const handleUploadPic = async (e) => {
     const file = e.target.files[0];
-    const imagePic = await ImageToBase64(file)
-
+    const imagePic = await ImageToBase64(file);
 
     setData((prev) => {
       return {
         ...prev,
-        profilePic: imagePic
-      }
-    })
-
-  }
-
-
+        profilePic: imagePic,
+      };
+    });
+  };
 
   console.log("Signup Data", data);
 
-
-
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post(SummaryApi.signUp.url,{
-      body:JSON.stringify(data)
-    })
 
+    if(data.password === data.confirmedPassword){
+      try {
+        const response = await axios.post(SummaryApi.signUp.url, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if(response.data.success){
+          toast.success(response.data.message)
+          navigate("/login");
+        }
+        if(response.data.error){
+          toast.error(response.data.message)  
+        }
+        
+        
+        console.log("Response:", response.data);
+  
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }else{
+      console.log("password and confirmed password are not match")
+    }
+   
   };
-
-
-
-
 
   return (
     <section id="signup">
