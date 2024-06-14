@@ -5,6 +5,9 @@ const SummaryApi = {
 
     signUp: {
         url: `${backendDomain}/api/signup`,
+    },
+    signIn: {
+        url: `${backendDomain}/api/login`,
     }
 }
 

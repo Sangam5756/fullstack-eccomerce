@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signinIcon from "../assest/signin.gif";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-
+import SummaryApi from "../common";
+import { toast } from "react-toastify";
+import axios from "axios";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -12,6 +14,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleonChange = (e) => {
     const { name, value } = e.target;
@@ -24,11 +28,38 @@ const Login = () => {
     });
   };
 
-  console.log("Login Data -", data);
 
   // Handle form when submitted
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+
+       const response = await axios.post(SummaryApi.signIn.url, data, {
+        withCredentials:"include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          
+        });
+
+        console.log(response)
+  
+      if (response.data.success) {
+        toast.success(response.data.message);
+        navigate("/");
+      }
+      if (response.data.error) {
+        toast.error(response.data.message);
+      }
+
+      
+    } catch (error) {
+      console.log("error",error)
+    }
+   
+
+
   };
 
   return (
@@ -73,7 +104,7 @@ const Login = () => {
                   </span>
                 </div>
               </div>
-              
+
 
               <Link
                 to="/forget-password"
