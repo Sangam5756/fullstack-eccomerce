@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { GrSearch } from "react-icons/gr";
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
-
+import { useSelector } from "react-redux";
 const Header = () => {
+
+  const user = useSelector((state) => state.user);
+
+  console.log("header user",user)
   return (
     <header className="h-16 shadow-md bg-white">
       <div className=" h-full container mx-auto flex items-center px-4 justify-between">

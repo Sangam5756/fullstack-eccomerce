@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import signinIcon from "../assest/signin.gif";
 import { FaEye } from "react-icons/fa";
@@ -6,6 +6,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import SummaryApi from "../common";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Context from "../context";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -16,6 +17,10 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
+  const {userDetails} = useContext(Context)
+  // console.log(context)
+
+  // console.log(generalContext)
 
   const handleonChange = (e) => {
     const { name, value } = e.target;
@@ -35,29 +40,31 @@ const Login = () => {
     e.preventDefault();
     try {
 
-       const response = await axios.post(SummaryApi.signIn.url, data, {
-        withCredentials:"include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          
-        });
+      const response = await axios.post(SummaryApi.signIn.url, data, {
+        withCredentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-        console.log(response)
-  
+      });
+
+      // console.log(response)
+
       if (response.data.success) {
         toast.success(response.data.message);
         navigate("/");
+        userDetails();
+        console.log("userDetails called")
       }
       if (response.data.error) {
         toast.error(response.data.message);
       }
 
-      
+
     } catch (error) {
-      console.log("error",error)
+      console.log("error", error)
     }
-   
+
 
 
   };
