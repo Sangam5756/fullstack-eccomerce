@@ -6,8 +6,9 @@ import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 const Header = () => {
 
-  const user = useSelector((state) => state.user);
+  const user = useSelector(state => state?.user)
 
+  
   console.log("header user",user)
   return (
     <header className="h-16 shadow-md bg-white">
