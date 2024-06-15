@@ -4,9 +4,9 @@ export const userDetailsController =async (req, res) => {
 
     
     const user = await User.findById(req.userId)
-   const e = res.status(200).json({
+   res.status(200).json({
       data:user,
-      sucess:true,
+      success:true,
       error:false,
       message:"User Details"
     })

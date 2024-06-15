@@ -16,6 +16,7 @@ const App = () => {
 
   const dispatch = useDispatch()
 
+  const [data, setData] = useState(null);
 
   const fetchUserDetails = async () => {
 
@@ -23,14 +24,13 @@ const App = () => {
       withCredentials: 'include'
     });
 
+    const data = dataResponse.data.data;
 
-    // console.log("app", dataResponse.data.data)
-    const data  =dataResponse.data.data;
-    console.log("data",data)
-    if(dataResponse.data.success) {
+    if (dataResponse.data.success) {
       dispatch(setUserDetails(data));
     }
   };
+
 
   useEffect(() => {
     fetchUserDetails();
@@ -40,6 +40,7 @@ const App = () => {
 
   return (
     <>
+
       <Context.Provider value={{ fetchUserDetails }}>
         <ToastContainer />
         <Header />
