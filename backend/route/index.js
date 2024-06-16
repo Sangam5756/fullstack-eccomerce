@@ -9,7 +9,7 @@ import { userDetailsController } from "../controller/userDetails.controller.js";
 import { authToken } from "../middleware/authToken.js";
 import { userLogout } from "../controller/userLogout.js";
 import { allUser } from "../controller/allUser.controller.js";
-import { updateUser } from "../controller/updateAllUser.js";
+import updateUser  from "../controller/updateUser.js";
 
 
 router.post("/signup", userSignUpController);
@@ -19,6 +19,6 @@ router.get("/user-Logout", userLogout);
 
 // Admin Panel
 router.get("/all-users",authToken,allUser);
-router.post("update-user",updateUser)
+router.post("/update-user",authToken,updateUser)
 
 export default router;

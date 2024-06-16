@@ -3,8 +3,9 @@ import ROLE from '../common/ROLE'
 import { IoMdClose } from "react-icons/io"
 import axios from "axios"
 import SummaryApi from "../common";
+import { toast } from 'react-toastify';
 
-const ChangeUserRole = ({ name, email, role, onClose }) => {
+const ChangeUserRole = ({ name, email, role, onClose, userId ,callFunc}) => {
 
   const [userRole, setUserRole] = useState(role)
 
@@ -13,23 +14,31 @@ const ChangeUserRole = ({ name, email, role, onClose }) => {
 
   }
 
+  
+
   const updateUserRole = async () => {
 
-    const updatedResponse = await axios.post(SummaryApi.update_Users.url,userRole, {
+    const updatedResponse = await axios.post(SummaryApi.update_Users.url,{userId,role:userRole}, {
       withCredentials: "include",
       headers:{
         "content-type" :"application/json"
-      }
+      },
+    
     })
 
-    console.log(updatedResponse)
+    console.log("changeUser",updatedResponse)
+    if(updatedResponse.data.success){
+      toast.success(updatedResponse.data.message)
+      onClose()
+      callFunc()
+    }
 
   }
 
 
 
   return (
-    <div className='fixed top-0 bottom-0 left-0 right-0 w-full h-full z-10 flex justify-between items-center '>
+    <div className='fixed top-0 bottom-0 left-0 right-0 w-full h-full z-10 flex justify-between items-center bg-slate-200 bg-opacity-50 '>
 
       <div className=' mx-auto bg-white shadow-md p-4 w-full max-w-sm'>
 
@@ -52,7 +61,7 @@ const ChangeUserRole = ({ name, email, role, onClose }) => {
             }
           </select>
         </div>
-        <button onClick={updateUserRole} className='w-fit mx-auto block border py-1 px-3 rounded-full bg-red-600 hover:bg-red-700 text-white'>Change Role</button>
+        <button onClick={updateUserRole} className='w-fit mx-auto block border py-1 px-3 rounded-full bg-red-600 hover:bg-red-700 text-white' >Change Role</button>
 
       </div>
 

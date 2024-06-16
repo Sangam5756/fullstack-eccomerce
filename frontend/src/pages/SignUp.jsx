@@ -75,7 +75,7 @@ const SignUp = () => {
         console.error("Error:", error);
       }
     }else{
-      console.log("password and confirmed password are not match")
+      console.error("password and confirmed password are not match");
     }
    
   };

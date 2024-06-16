@@ -1,20 +1,24 @@
-import axios, { all } from 'axios';
-import React, { useEffect, useState } from 'react'
-import SummaryApi from '../common';
-import moment from "moment"
-import { toast } from "react-toastify"
+import axios, { all } from "axios";
+import React, { useEffect, useState } from "react";
+import SummaryApi from "../common";
+import moment from "moment";
+import { toast } from "react-toastify";
 import { MdModeEdit } from "react-icons/md";
-import ChangeUserRole from '../components/ChangeUserRole';
+import ChangeUserRole from "../components/ChangeUserRole";
 const AllUsers = () => {
-
   const [alluser, setAlluser] = useState([]);
+  const [openUpdatedUser, setOpenUpdatedUser] = useState(false);
+  const [updatedUserDetails, setUpdatedUserDetails] = useState({
+    name: "",
+    email: "",
+    role: "",
+    _id: "",
+  });
 
   const fetchUser = async () => {
-
     const userResponse = await axios.get(SummaryApi.all_Users.url, {
-      withCredentials: 'include'
-    })
-
+      withCredentials: "include",
+    });
 
     if (userResponse.data.success) {
       setAlluser(userResponse.data.data);
@@ -22,21 +26,17 @@ const AllUsers = () => {
     if (userResponse.data.error) {
       toast.error(userResponse.data.message);
     }
-
-  }
-  console.log(alluser)
-
+  };
 
   useEffect(() => {
     fetchUser();
-  }, [])
-
+  }, []);
 
   return (
-    <div className='w-full pb-4 bg-white'>
-      <table className='w-full border userTable'>
+    <div className="w-full pb-4 bg-white">
+      <table className="w-full border userTable">
         <thead>
-          <tr>
+          <tr className="bg-black text-white">
             <th>Sr</th>
             <th>Name</th>
             <th>Email</th>
@@ -45,33 +45,44 @@ const AllUsers = () => {
             <th>Action</th>
           </tr>
         </thead>
-        <tbody className='pb-4 bg-white'>
-          {
-            alluser.map((el, index) => {
-              return (
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>{el?.name}</td>
-                  <td>{el?.email}</td>
-                  <td>{el?.role}</td>
-                  <td>{moment(el?.createdAt).format("ll")}</td>
-                  <td>
-                    <button className='bg-green-200 rounded-full p-2 cursor-pointer hover:bg-green-500 hover:text-white'>
-                      <MdModeEdit />
-                    </button>
-                  </td>
+        <tbody className="pb-4 bg-white">
+          {alluser.map((el, index) => {
+            return (
+              <tr>
+                <td>{index + 1}</td>
+                <td>{el?.name}</td>
+                <td>{el?.email}</td>
+                <td>{el?.role}</td>
+                <td>{moment(el?.createdAt).format("ll")}</td>
+                <td>
+                  <button
+                    className="bg-green-200 rounded-full p-2 cursor-pointer hover:bg-green-500 hover:text-white"
+                    onClick={() => {
+                      setUpdatedUserDetails(el);
 
-                </tr>
-              )
-            })
-          }
+                      setOpenUpdatedUser(true);
+                    }}
+                  >
+                    <MdModeEdit />
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
-      <ChangeUserRole/>
-      
-
+      {openUpdatedUser && (
+        <ChangeUserRole
+          onClose={() => setOpenUpdatedUser(false)}
+          name={updatedUserDetails.name}
+          email={updatedUserDetails.email}
+          role={updatedUserDetails.role}
+          userId={updatedUserDetails._id}
+          callFunc={fetchUser}
+        />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default AllUsers
+export default AllUsers;

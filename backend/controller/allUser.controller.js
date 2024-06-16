@@ -3,8 +3,7 @@ import User from "../model/user.model.js";
 export const allUser = async (req, res) => {
   try {
     const allUsers = await User.find();
-    console.log(allUsers)
-    console.log("userId", req.userId);
+    
 
     res.status(200).json({
       data:allUsers,
