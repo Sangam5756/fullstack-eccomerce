@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema(
     role:String
   },
   {
-    timestamp: true,
+    timestamps: true,
   }
 );
 

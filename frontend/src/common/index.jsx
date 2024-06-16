@@ -19,6 +19,9 @@ const SummaryApi = {
     all_Users: {
         url: `${backendDomain}/api/all-users`,
     },
+    update_Users: {
+        url: `${backendDomain}/api/update-user`,
+    },
     
 }
 
