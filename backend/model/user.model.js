@@ -16,6 +16,7 @@ const userSchema = mongoose.Schema(
       require: true,
     },
     profilePic: String,
+    role:String
   },
   {
     timestamp: true,
