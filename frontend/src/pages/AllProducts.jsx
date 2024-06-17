@@ -1,11 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UploadProducts from "./UploadProducts";
+import axios from "axios";
+import SummaryApi from "../common";
+import { toast } from "react-toastify";
+import AdminProductCard from "../components/AdminProductCard.jsx";
 
 const AllProducts = () => {
-    const [openUploadProduct, setOpenUploadProduct] = useState(false);
+  const [openUploadProduct, setOpenUploadProduct] = useState(false);
+  const [allProduct, setAllProduct] = useState([]);
 
+  const fetchAllProduct = async () => {
+    const response = await axios.get(SummaryApi.get_Product.url, {
+      withCredentials: "include",
+    });
 
+    console.log(response);
+    if (response.data.success) {
+      setAllProduct(response.data.data);
+    }
 
+    if (response.data.error) {
+      toast.error(response.data.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllProduct();
+  }, []);
 
   return (
     <div>
@@ -18,6 +39,14 @@ const AllProducts = () => {
           Upload Product
         </button>
       </div>
+
+      {/* All Products */}
+      <div className="flex items-center gap-5 py-4">
+        {allProduct.map((product, index) => {
+          return <AdminProductCard data={product} key={index + "allProduct"} />;
+        })}
+      </div>
+
       {/* Upload product components */}
       {openUploadProduct && (
         <UploadProducts onClose={() => setOpenUploadProduct((prev) => !prev)} />

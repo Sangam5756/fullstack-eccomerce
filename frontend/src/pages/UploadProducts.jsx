@@ -4,6 +4,10 @@ import ProductCategory from "../helpers/ProductCategory.jsx";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import UploadImage from "../helpers/UploadImage.jsx";
 import DisplayImage from "../components/DisplayImage.jsx";
+import { MdDelete } from "react-icons/md";
+import axios from "axios";
+import SummaryApi from "../common/index.jsx";
+import { toast } from "react-toastify";
 
 const UploadProducts = ({ onClose }) => {
   const [data, setData] = useState({
@@ -13,22 +17,38 @@ const UploadProducts = ({ onClose }) => {
     productImage: [],
     description: "",
     price: "",
-    selling: "",
+    sellingPrice: "",
   });
 
   const [fullScreenImage, setFullScreenImage] = useState(false);
-  const [Imageurl,setImageUrl] = useState("")
-  
-
+  const [Imageurl, setImageUrl] = useState("");
 
   const handleChange = (e) => {
-    setData(e.target.value);
+    const { name, value } = e.target;
+    setData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleDeleteProductImage = async (index) => {
+    console.log("Image-Index", index);
+
+    const newProductImage = [...data.productImage];
+    newProductImage.splice(index, 1);
+    setData((prev) => {
+      return {
+        ...prev,
+        productImage: [...newProductImage],
+      };
+    });
   };
 
   const handleUploadProducts = async (e) => {
     const file = e.target.files[0];
     const uploadImageCloudinary = await UploadImage(file);
-    
 
     setData((prev) => {
       return {
@@ -36,6 +56,25 @@ const UploadProducts = ({ onClose }) => {
         productImage: [...prev.productImage, uploadImageCloudinary.data.url],
       };
     });
+  };
+
+  // On Submitting the form
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const addProduct = await axios.post(SummaryApi.add_Product.url, data, {
+      withCredentials: "include",
+    });
+
+    if (addProduct.data.success) {
+      toast.success(addProduct.data.message);
+      onClose();
+    }
+    if (addProduct.data.error) {
+      toast.success(addProduct.data.message);
+    }
+
+    console.log("Data", addProduct);
   };
 
   return (
@@ -51,7 +90,11 @@ const UploadProducts = ({ onClose }) => {
           </div>
         </div>
 
-        <form action="" className="grid p-4 gap-2 overflow-scroll h-full mb-5">
+        <form
+          action=""
+          onSubmit={handleSubmit}
+          className="grid p-4 gap-2 overflow-scroll h-full mb-5"
+        >
           <label htmlFor="productName">Product Name :</label>
           <input
             type="text"
@@ -86,6 +129,7 @@ const UploadProducts = ({ onClose }) => {
             className="p-2 bg-slate-100 border rounded "
             onChange={handleChange}
           >
+            <option>Select Category</option>
             {ProductCategory.map((el, index) => {
               return (
                 <option value={el.value} key={el.value + index}>
@@ -123,16 +167,26 @@ const UploadProducts = ({ onClose }) => {
                 className="flex items-center gap-2
               "
               >
-                {data.productImage.map((el) => {
+                {data.productImage.map((el, index) => {
                   return (
-                    <img
-                      src={el}
-                      alt="img"
-                      height={80}
-                      width={80}
-                      className="bg-slate-100 border cursor-pointer"
-                      onClick={()=>{setFullScreenImage(true),setImageUrl(el)}}
-                    />
+                    <div className="relative group">
+                      <img
+                        src={el}
+                        alt="img"
+                        height={80}
+                        width={80}
+                        className="bg-slate-100 border cursor-pointer"
+                        onClick={() => {
+                          setFullScreenImage(true), setImageUrl(el);
+                        }}
+                      />
+                      <div
+                        className="absolute bottom-0 right-0 p-1  rounded-full bg-red-600 text-white hidden group-hover:block cursor-pointer"
+                        onClick={() => handleDeleteProductImage(index)}
+                      >
+                        <MdDelete />
+                      </div>
+                    </div>
                   );
                 })}
               </div>
@@ -143,6 +197,43 @@ const UploadProducts = ({ onClose }) => {
               </p>
             )}
           </div>
+          <label htmlFor="price" className="mt-3">
+            Price :
+          </label>
+          <input
+            type="number"
+            name="price"
+            id="price"
+            placeholder="Enter price "
+            value={data.price}
+            onChange={handleChange}
+            className="p-2 bg-slate-100 border rounded "
+          />
+          <label htmlFor="sellingPrice" className="mt-3">
+            Selling :
+          </label>
+          <input
+            type="number"
+            name="sellingPrice"
+            id="selling"
+            placeholder="Enter selling price  "
+            value={data.sellingPrice}
+            onChange={handleChange}
+            className="p-2 bg-slate-100 border rounded  mb-5"
+          />
+
+          <label htmlFor="Description" className="mt-3">
+            Description :
+          </label>
+          <textarea
+            name="description"
+            id="Description"
+            className="h-28 bg-slate-100 resize-none p-2"
+            placeholder="Enter Product Description"
+            value={data.description}
+            onChange={handleChange}
+            rows={3}
+          ></textarea>
 
           <button className="text-white bg-red-600 px-3 py-2 mb-10 hover:bg-red-700">
             Upload Product
@@ -150,11 +241,14 @@ const UploadProducts = ({ onClose }) => {
         </form>
       </div>
 
-
       {/* Display Image Full Screen */}
 
-     { fullScreenImage &&( <DisplayImage onClose={() => setFullScreenImage((prev) =>!prev)} imgUrl={Imageurl}/>)
-     }
+      {fullScreenImage && (
+        <DisplayImage
+          onClose={() => setFullScreenImage((prev) => !prev)}
+          imgUrl={Imageurl}
+        />
+      )}
     </div>
   );
 };
