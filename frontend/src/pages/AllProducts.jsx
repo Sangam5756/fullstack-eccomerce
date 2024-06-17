@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import UploadProducts from "./UploadProducts";
 
 const AllProducts = () => {
-  const [openUploadProduct, setOpenUploadProduct] = useState(false);
+    const [openUploadProduct, setOpenUploadProduct] = useState(false);
+
+
+
 
   return (
     <div>
