@@ -9,7 +9,7 @@ import axios from "axios";
 import SummaryApi from "../common/index.jsx";
 import { toast } from "react-toastify";
 
-const AdminEditProduct = ({ onClose,editdata,fetchData }) => {
+const AdminEditProduct = ({ onClose,editdata,fetchdata }) => {
 
   const [data, setData] = useState({
     ...editdata,
@@ -74,7 +74,7 @@ const AdminEditProduct = ({ onClose,editdata,fetchData }) => {
       setData(editProduct.data.data)
       toast.success(editProduct.data.message);
       onClose();
-      fetchData();
+      fetchdata();
     }
     if (editProduct.data.error) {
       toast.success(editProduct.data.message);

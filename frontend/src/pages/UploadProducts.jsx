@@ -9,7 +9,7 @@ import axios from "axios";
 import SummaryApi from "../common/index.jsx";
 import { toast } from "react-toastify";
 
-const UploadProducts = ({ onClose }) => {
+const UploadProducts = ({ onClose, fetchdata }) => {
   const [data, setData] = useState({
     productName: "",
     brandName: "",
@@ -49,11 +49,13 @@ const UploadProducts = ({ onClose }) => {
   const handleUploadProducts = async (e) => {
     const file = e.target.files[0];
     const uploadImageCloudinary = await UploadImage(file);
+    console.log(uploadImageCloudinary);
 
     setData((prev) => {
       return {
         ...prev,
         productImage: [...prev.productImage, uploadImageCloudinary.data.url],
+        productName: uploadImageCloudinary.data.original_filename,
       };
     });
   };
@@ -69,9 +71,10 @@ const UploadProducts = ({ onClose }) => {
     if (addProduct.data.success) {
       toast.success(addProduct.data.message);
       onClose();
+      fetchdata();
     }
     if (addProduct.data.error) {
-      toast.success(addProduct.data.message);
+      toast.error(addProduct.data.message);
     }
 
     console.log("Data", addProduct);
@@ -104,6 +107,7 @@ const UploadProducts = ({ onClose }) => {
             value={data.productName}
             onChange={handleChange}
             className="p-2 bg-slate-100 border rounded "
+            required
           />
 
           <label htmlFor="brandName" className="mt-3">
@@ -117,6 +121,7 @@ const UploadProducts = ({ onClose }) => {
             value={data.brandName}
             onChange={handleChange}
             className="p-2 bg-slate-100 border rounded "
+            required
           />
           <label htmlFor="category" className="mt-3">
             Category :
@@ -128,6 +133,7 @@ const UploadProducts = ({ onClose }) => {
             value={data.category}
             className="p-2 bg-slate-100 border rounded "
             onChange={handleChange}
+            required
           >
             <option>Select Category</option>
             {ProductCategory.map((el, index) => {
@@ -156,6 +162,7 @@ const UploadProducts = ({ onClose }) => {
                   id="uploadProduct"
                   className="hidden"
                   onChange={handleUploadProducts}
+                  
                 />
               </div>
             </div>
@@ -208,6 +215,7 @@ const UploadProducts = ({ onClose }) => {
             value={data.price}
             onChange={handleChange}
             className="p-2 bg-slate-100 border rounded "
+            required
           />
           <label htmlFor="sellingPrice" className="mt-3">
             Selling :
@@ -220,6 +228,7 @@ const UploadProducts = ({ onClose }) => {
             value={data.sellingPrice}
             onChange={handleChange}
             className="p-2 bg-slate-100 border rounded  mb-5"
+            required
           />
 
           <label htmlFor="Description" className="mt-3">
@@ -233,6 +242,7 @@ const UploadProducts = ({ onClose }) => {
             value={data.description}
             onChange={handleChange}
             rows={3}
+            required
           ></textarea>
 
           <button className="text-white bg-red-600 px-3 py-2 mb-10 hover:bg-red-700">

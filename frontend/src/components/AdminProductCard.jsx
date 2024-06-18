@@ -3,7 +3,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import AdminEditProduct from "./AdminEditProduct";
 import DisplayInrCurrency from "../helpers/DisplayCurreny";
 
-const AdminProductCard = ({ data, fetchData }) => {
+const AdminProductCard = ({ data, fetchdata }) => {
   const [editModel, setEditModel] = useState(false);
 
   return (
@@ -37,7 +37,7 @@ const AdminProductCard = ({ data, fetchData }) => {
         <AdminEditProduct
           onClose={() => setEditModel(false)}
           editdata={data}
-          fetchData={fetchData}
+          fetchdata={fetchdata}
         />
       )}
     </div>
