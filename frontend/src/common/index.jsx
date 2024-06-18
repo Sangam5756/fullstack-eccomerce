@@ -28,6 +28,9 @@ const SummaryApi = {
     get_Product: {
         url: `${backendDomain}/api/get-product`,
     },
+    edit_Product: {
+        url: `${backendDomain}/api/edit-product`,
+    },
     
 }
 

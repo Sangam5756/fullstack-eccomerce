@@ -11,6 +11,7 @@ import { allUser } from "../controller/allUser.controller.js";
 import updateUser from "../controller/updateUser.js";
 import UploadProductcontroller from "../controller/UploadProduct.controller.js";
 import getProductsController from "../controller/getAllProducts.controller.js";
+import editProductController from "../controller/editProductController.js";
 
 router.post("/signup", userSignUpController);
 router.post("/login", userLogin);
@@ -23,6 +24,7 @@ router.post("/update-user", authToken, updateUser);
 
 // Product
 router.post("/add-product", authToken, UploadProductcontroller);
-router.get("/get-product",getProductsController)
+router.get("/get-product", getProductsController);
+router.post("/edit-product", authToken, editProductController);
 
 export default router;
