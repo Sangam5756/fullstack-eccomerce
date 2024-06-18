@@ -8,10 +8,10 @@ const productSchema = mongoose.Schema({
   description: String,
   price: Number,
   sellingPrice: Number,
-},{
-    timeStamps:true
-});
-
+}, {
+  timestamps: true,
+}
+);
 const Product = new mongoose.model("product", productSchema);
 
 export default Product;
