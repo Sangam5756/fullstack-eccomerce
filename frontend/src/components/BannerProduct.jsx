@@ -26,9 +26,11 @@ const BannerProduct = () => {
   ];
 
   const handleRight = () => {
-    
+    if (DesktopImage.length - 1 > currentImage) {
 
       setCurrentImage((prev) => prev + 1);
+    }
+
     
   }
   const handleLeft = () => {

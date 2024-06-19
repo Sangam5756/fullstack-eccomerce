@@ -20,6 +20,7 @@ const CategoryList = () => {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     getProductcategory();
@@ -27,7 +28,7 @@ const CategoryList = () => {
 
   return (
     <div className="container mx-auto p-4 ">
-      <div className="flex items-center gap-2 justify-between overflow-scroll">
+      <div className="flex items-center gap-2 justify-between overflow-scroll scrollbar-none">
         {loading ? (
          
             
