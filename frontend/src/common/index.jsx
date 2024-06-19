@@ -31,6 +31,9 @@ const SummaryApi = {
     edit_Product: {
         url: `${backendDomain}/api/edit-product`,
     },
+    category_Product: {
+        url: `${backendDomain}/api/getProduct-category`,
+    },
     
 }
 

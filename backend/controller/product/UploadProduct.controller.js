@@ -1,6 +1,5 @@
-import uploadProductPermission from "../helper/permission.js";
-import Product from "../model/product.model.js";
-
+import uploadProductPermission from "../../helper/permission.js";
+import Product from "../../model/product.model.js";
 const UploadProductcontroller = async (req, res) => {
   try {
     const sessionUser = req.userId;
