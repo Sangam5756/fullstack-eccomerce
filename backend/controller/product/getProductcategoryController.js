@@ -4,7 +4,7 @@ const getProductcategoryController = async (req, res) => {
   try {
     const ProductCategory = await Product.distinct("category");
 
-    console.log("Product Category", ProductCategory);
+    // console.log("Product Category", ProductCategory);
 
     // to store one product from  each category
     const productByCategory = [];
