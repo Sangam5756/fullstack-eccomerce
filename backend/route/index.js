@@ -12,8 +12,9 @@ import updateUser from "../controller/user/updateUser.js";
 import UploadProductcontroller from "../controller/product/UploadProduct.controller.js";
 import getProductsController from "../controller/product/getAllProducts.controller.js";
 import editProductController from "../controller/product/editProductController.js";
-import getProductcategoryController from '../controller/product/getProductcategoryOne.Controller.js';
+import getProductcategoryController from "../controller/product/getProductcategoryOne.Controller.js";
 import GetCategoryWiseProductController from "../controller/product/GetCategoryWiseProductOne.Controller.js";
+import { getProductDetailscontroller } from "../controller/product/getProductDetails.controller.js";
 
 router.post("/signup", userSignUpController);
 router.post("/login", userLogin);
@@ -28,7 +29,8 @@ router.post("/update-user", authToken, updateUser);
 router.post("/add-product", authToken, UploadProductcontroller);
 router.get("/get-product", getProductsController);
 router.post("/edit-product", authToken, editProductController);
-router.get("/getProduct-category",getProductcategoryController)
-router.post("/category-products",GetCategoryWiseProductController)
+router.get("/getProduct-category", getProductcategoryController);
+router.post("/category-products", GetCategoryWiseProductController);
+router.post("/product-details", getProductDetailscontroller);
 
 export default router;
