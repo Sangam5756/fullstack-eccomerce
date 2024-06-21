@@ -5,6 +5,7 @@ import SummaryApi from '../common'
 import { FaStar } from 'react-icons/fa'
 import { FaStarHalf } from 'react-icons/fa6'
 import DisplayInrCurrency from '../helpers/DisplayCurreny'
+import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay'
 
 const ProductDetails = () => {
 
@@ -18,6 +19,10 @@ const ProductDetails = () => {
     sellingPrice: "",
   })
   const params = useParams()
+  const newid= params.id;
+
+  const [oldid, setOldid] = useState("");
+  
   const [loading, setLoading] = useState(false);
   const productImageListLoading = new Array(4).fill(null);
 
@@ -26,12 +31,15 @@ const ProductDetails = () => {
     x: 0,
     y: 0
   })
-
+  
   const [zoom, setZoom] = useState(false)
+  const [productIdchange, setProductImage] = useState(false);
+  
 
 
   const fetchDetails = async () => {
     setLoading(true);
+    setOldid(params.id);
     const response = await axios.post(SummaryApi.Product_Details.url, { Productid: params?.id }, {
       withCredentials: 'include',
       headers: { "content-type": "application/json" }
@@ -42,16 +50,27 @@ const ProductDetails = () => {
   }
 
 
-  useEffect(() => {
+  
 
+  
+  useEffect(()=>{
+    if(oldid !== newid){
+      fetchDetails();
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    
+  },[newid])
+
+
+  useEffect(() => {
     fetchDetails();
   }, [])
 
   const handleMouseEnterProduct = (imageUrl) => {
     setActiveImage(imageUrl)
-
-
   }
+
+ 
   const handleZoomImage = useCallback((e) => {
     setZoom(true)
     const { left, top, width, height } = e.target.getBoundingClientRect();
@@ -62,10 +81,10 @@ const ProductDetails = () => {
     setZoomImageCoordinate({
       x, y
     })
-    
+
   }, [zoomImageCoordinate])
 
-  const handleZoomOutImage = () =>{
+  const handleZoomOutImage = () => {
     setZoom(false)
   }
 
@@ -82,25 +101,25 @@ const ProductDetails = () => {
             loading ? (<div className='lg:h-96 lg:w-96 h-[300px] w-[300px] animate-pulse bg-slate-200'>
             </div>) :
 
-              (<div className='lg:h-96 lg:w-96 h-[300px] w-[300px]  bg-slate-200 ml-5 relative'>
-                <img src={activeImage} alt="" className='h-full w-full object-scale-down  mix-blend-multiply 'onMouseLeave={handleZoomOutImage} onMouseMove={handleZoomImage} />
+              (<div className='lg:h-96 lg:w-96  h-[300px] w-[300px]  bg-slate-200 ml-5 relative p-2'>
+                <img src={activeImage} alt="" className='h-full w-full object-scale-down  mix-blend-multiply ' onMouseLeave={handleZoomOutImage} onMouseMove={handleZoomImage} />
 
-               {
-                zoom && (
-                  <div className=' absolute bg-slate-200 min-w-[500px] min-h-[400px]  p-2 -right-[510px] overflow-hidden hidden lg:block top-0'>
-                  <div className='h-full min-w-[500px] min-h-[400px] w-full  mix-blend-multiply scale-150'
-                    style={{
-                      backgroundImage: `url(${activeImage})`,
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: `${zoomImageCoordinate.x * 100}% ${zoomImageCoordinate.y * 100}%`
-                    }}>
+                {
+                  zoom && (
+                    <div className=' absolute bg-slate-200 min-w-[500px] min-h-[400px]  p-2 -right-[510px] overflow-hidden hidden lg:block top-0'>
+                      <div className='h-full min-w-[500px] min-h-[400px] w-full  mix-blend-multiply scale-150'
+                        style={{
+                          backgroundImage: `url(${activeImage})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundPosition: `${zoomImageCoordinate.x * 100}% ${zoomImageCoordinate.y * 100}%`
+                        }}>
 
-                  </div>
+                      </div>
 
-                </div>
+                    </div>
 
-                )
-               }
+                  )
+                }
               </div>)
           }
 
@@ -208,8 +227,16 @@ const ProductDetails = () => {
       </div>
 
 
+      {
+        data?.category && 
+          (
+            <CategoryWiseProductDisplay  category={data?.category} heading={"Recommonded Products"} />
+          )
 
+      }
     </div>
+
+
   )
 }
 

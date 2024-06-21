@@ -15,6 +15,7 @@ import editProductController from "../controller/product/editProductController.j
 import getProductcategoryController from "../controller/product/getProductcategoryOne.Controller.js";
 import GetCategoryWiseProductController from "../controller/product/GetCategoryWiseProductOne.Controller.js";
 import { getProductDetailscontroller } from "../controller/product/getProductDetails.controller.js";
+import addtoCartController from "../controller/user/addtoCartController.js";
 
 router.post("/signup", userSignUpController);
 router.post("/login", userLogin);
@@ -33,4 +34,6 @@ router.get("/getProduct-category", getProductcategoryController);
 router.post("/category-products", GetCategoryWiseProductController);
 router.post("/product-details", getProductDetailscontroller);
 
+// user add to cart
+router.post("/add-to-cart", authToken, addtoCartController);
 export default router;

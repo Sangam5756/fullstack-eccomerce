@@ -62,6 +62,6 @@ const CategoryList = () => {
       </div>
     </div>
   );
-};
+}; 
 
 export default CategoryList;
