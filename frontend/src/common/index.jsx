@@ -43,6 +43,12 @@ const SummaryApi = {
     addtoCart: {
         url: `${backendDomain}/api/add-to-cart`,
     },
+    Count_addtoCart: {
+        url: `${backendDomain}/api/countAddToCartProduct`,
+    },
+    view_addtoCart: {
+        url: `${backendDomain}/api/viewCartProduct`,
+    },
 
 }
 

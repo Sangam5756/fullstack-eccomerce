@@ -15,6 +15,7 @@ const App = () => {
 
 
   const dispatch = useDispatch()
+  const [cartProductCount, setCartProductCount] =useState(0)
 
   const [data, setData] = useState(null);
 
@@ -25,6 +26,7 @@ const App = () => {
     });
 
     const data = dataResponse.data.data;
+    
 
     if (dataResponse.data.success) {
       dispatch(setUserDetails(data));
@@ -32,8 +34,23 @@ const App = () => {
   };
 
 
+  const fetchCountofProduct = async () => {
+    const response = await axios.get(SummaryApi.Count_addtoCart.url, {
+      withCredentials: 'include'
+    })
+
+    console.log(response)
+    setCartProductCount(response.data.data.count);
+    
+  }
+  
+
+
   useEffect(() => {
     fetchUserDetails();
+    fetchCountofProduct()
+    
+    
 
   }, [])
 
@@ -41,8 +58,12 @@ const App = () => {
   return (
     <>
 
-      <Context.Provider value={{ fetchUserDetails }}>
-        <ToastContainer />
+      <Context.Provider value={{ fetchUserDetails,
+      // current user cart count
+        cartProductCount,
+        fetchCountofProduct
+       }}>
+        <ToastContainer position="top-center" />
         <Header />
         <main className="min-h-[calc(100vh-120px)] pt-16">
           <Outlet />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { GrSearch, GrToast } from "react-icons/gr";
@@ -9,12 +9,14 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { setUserDetails } from "../store/userSlice";
 import ROLE from "../common/ROLE"
+import Context from "../context";
 
 
 const Header = () => {
   const user = useSelector((state) => state.user.user); // Ensure correct path
   const dispatch = useDispatch();
   const [menuDisplay, setMenuDisplay] = useState(false);
+  const context = useContext(Context);
 
   const handleLogut = async () => {
     const fetchData = await axios.get(SummaryApi.user_Logout.url, {
@@ -30,6 +32,8 @@ const Header = () => {
       toast.error(fetchData.data.message);
     }
   };
+
+  console.log("header add to cart Count" , )
 
   return (
     <header className="h-16 w-full shadow-md bg-white fixed z-40">
@@ -81,14 +85,18 @@ const Header = () => {
               </div>
             )}
           </div>
-          <div className="text-2xl relative">
+          {
+            user?._id && (
+              <Link to={"/cart"} className="text-2xl relative">
             <span>
               <FaShoppingCart />
             </span>
             <p className="bg-red-500 text-xs absolute flex items-center justify-center h-5 w-5 rounded-full -top-2 -right-3">
-              0
+              {context.cartProductCount}
             </p>
-          </div>
+          </Link>
+            )
+          }
 
           {/* Login and logout buttons */}
 

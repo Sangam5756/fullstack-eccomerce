@@ -53,6 +53,7 @@ const Login = () => {
         toast.success(response.data.message);
         navigate("/");
         Generalcontext.fetchUserDetails()
+        Generalcontext.fetchCountofProduct()
       }
       if (response.data.error) {
         toast.error(response.data.message);
