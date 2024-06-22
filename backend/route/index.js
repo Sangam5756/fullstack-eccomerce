@@ -18,6 +18,7 @@ import { getProductDetailscontroller } from "../controller/product/getProductDet
 import addtoCartController from "../controller/user/addtoCartController.js";
 import countAddToCart from "../controller/user/countAddToCartProduct.js";
 import addToCartViewProduct from "../controller/user/addToCartViewProduct.js";
+import { updateAddCartController } from "../controller/user/updateAddCartController.js";
 
 router.post("/signup", userSignUpController);
 router.post("/login", userLogin);
@@ -40,4 +41,5 @@ router.post("/product-details", getProductDetailscontroller);
 router.post("/add-to-cart", authToken, addtoCartController);
 router.get("/countAddToCartProduct", authToken, countAddToCart);
 router.get("/viewCartProduct", authToken, addToCartViewProduct);
+router.post("/UpdateCartProduct", authToken, updateAddCartController);
 export default router;

@@ -7,6 +7,8 @@ const addtoCartController = async (req, res) => {
 
     // check product is available in cart or not
     const isAvailable = await Cart.findOne({ productId });
+    // const isAvailable = await Cart.deleteMany({ });
+
     
     console.log("productavailbale",isAvailable)
 

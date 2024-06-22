@@ -49,6 +49,9 @@ const SummaryApi = {
     view_addtoCart: {
         url: `${backendDomain}/api/viewCartProduct`,
     },
+    update_addtoCart: {
+        url: `${backendDomain}/api/UpdateCartProduct`,
+    },
 
 }
 
