@@ -4,10 +4,10 @@ export const updateAddCartController = async (req, res) => {
   try {
     const CurrentUserId = req.userId;
 
-    const addToCartProductId = req.body._id;
-    const qty = req.body.quantity;
+    const addToCartProductId = req?.body?._id;
+    const qty = req?.body?.quantity;
 
-    const updateProduct = await Cart.updateOne(addToCartProductId, {
+    const updateProduct = await Cart.updateOne({_id : addToCartProductId}, {
       ...(qty && { quantity: qty }),
     });
 

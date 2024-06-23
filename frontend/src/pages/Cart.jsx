@@ -1,4 +1,6 @@
 import axios from "axios";
+import { MdDelete } from "react-icons/md";
+
 import React, { useContext, useEffect, useState } from "react";
 import SummaryApi from "../common";
 import { DisplayInrCurrency } from "../helpers/DisplayCurreny";
@@ -25,9 +27,6 @@ const Cart = () => {
         setLoading(false);
     };
 
-    console.log("cartData", data);
-
-
 
     useEffect(() => {
         fetchData();
@@ -35,6 +34,8 @@ const Cart = () => {
 
     const increaseQty = async (id, qty) => {
         const response = await axios.post(SummaryApi.update_addtoCart.url, {
+            _id: id,
+
             quantity: qty + 1
         }, {
             withCredentials: 'include',
@@ -51,6 +52,7 @@ const Cart = () => {
     }
     const decreaseQty = async (id, qty) => {
         const response = await axios.post(SummaryApi.update_addtoCart.url, {
+            _id: id,
             quantity: qty - 1
         }, {
             withCredentials: 'include',
@@ -64,7 +66,30 @@ const Cart = () => {
         }
 
 
+
     }
+    const deleteCartProduct = async (id) => {
+        const response = await axios.post(SummaryApi.delete_addtoCart.url, {
+            _id: id,
+
+        }, {
+            withCredentials: 'include',
+            headers: {
+                "Content-Type": "Application/json"
+            }
+        })
+
+        console.log(response)
+        if (response.data.success) {
+            fetchData()
+            Generalcontext.fetchCountofProduct()
+        }
+    }
+
+    const totalQty = data.reduce((previouseValue, currentValue) => previouseValue + currentValue.quantity, 0);
+    const totalPrice = data.reduce((previouseValue, currentValue) => previouseValue +( currentValue.quantity * currentValue.productId.sellingPrice), 0);
+
+
 
     return (
         <div className="container mx-auto ">
@@ -96,23 +121,28 @@ const Cart = () => {
                                             className="w-full h-full  object-scale-down mix-blend-multiply"
                                         />
                                     </div>
-                                    <div className="px-4 py-2">
+                                    <div className="px-4 py-2 relative">
+                                        <div onClick={() => deleteCartProduct(product?._id)} className="absolute right-0 text-red-600 rounded-full   p-2 hover:bg-red-600 hover:text-white">
+                                            <MdDelete />
+
+                                        </div>
                                         <h2 className="text-lg lg:text-xl text-ellipsis line-clamp-1">
                                             {product?.productId?.productName}
                                         </h2>
                                         <p className=" capitalize text-slate-500">
                                             {product.productId.category}
                                         </p>
-                                        <p className="text-red-600 font-medium text-lg">
-                                            {DisplayInrCurrency(product?.productId.sellingPrice)}
-                                        </p>
+                                        <div className=" flex  justify-between items-center ">
+                                            <p className="text-red-600 font-medium text-lg">{DisplayInrCurrency(product?.productId.sellingPrice)}</p>
+                                            
+                                            <p className="text-slate-400 font-medium text-lg">{DisplayInrCurrency(product?.productId.sellingPrice * product?.quantity)}</p>
+                                        </div>
                                         <div className="flex items-center mt-1">
-                                            <button onClick={() => decreaseQty(product?.productId?._id, product.quantity)} className="border border-red-600 text-red-500  h-6 w-6 rounded flex items-center justify-center hover:bg-red-600 hover:text-white">
-
+                                            <button onClick={() => decreaseQty(product?._id, product.quantity)} className="border border-red-600 text-red-500  h-6 w-6 rounded flex items-center justify-center hover:bg-red-600 hover:text-white">
                                                 -
                                             </button>
                                             <span>&nbsp;&nbsp;{product.quantity} &nbsp;&nbsp;</span>
-                                            <button onClick={() => increaseQty(product?.productId?._id, product.quantity)} className=" border border-red-600 text-red-500 h-6 w-6  flex items-center justify-center rounded hover:bg-red-600 hover:text-white">
+                                            <button onClick={() => increaseQty(product?._id, product.quantity)} className=" border border-red-600 text-red-500 h-6 w-6  flex items-center justify-center rounded hover:bg-red-600 hover:text-white">
                                                 +
                                             </button>
                                         </div>
@@ -126,10 +156,21 @@ const Cart = () => {
                 <div className="mt-5 lg:mt-0 w-full max-w-sm p-4 ">
                     {loading ? (
                         <div className=" h-36 bg-slate-200 border border-slate-300 animate-pulse">
-                            Total
+
                         </div>
                     ) : (
-                        <div className=" h-36 bg-slate-200">Total</div>
+                        <div className=" h-36 bg-white">
+                            <h2 className="text-white bg-red-600 px-4 py-1">Summary</h2>
+                            <div>
+                                <p>Quantity</p>
+                                <p>{totalQty}</p>
+                                
+                            </div>
+                            <div className="">
+                                <p>Total Price</p>
+                            <p>{totalPrice}</p>
+                            </div>
+                        </div>
                     )}
                 </div>
             </div>
