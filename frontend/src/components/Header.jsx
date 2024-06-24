@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Logo from "./Logo";
 import { GrSearch, GrToast } from "react-icons/gr";
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,20 +18,24 @@ const Header = () => {
   const context = useContext(Context);
   const navigate = useNavigate();
   const searchInput = useLocation()
-  const [search ,setSearch] = useState(searchInput?.search?.split("=")[1]);
+  const searchUrl = new URLSearchParams(searchInput?.search)
+  const searchQuery = searchUrl.getAll("q")
 
-  // console.log("searchInput", searchInput?.search.split("=")[1]);
+  const [search ,setSearch] = useState(searchQuery);
+
   
   const handleLogut = async () => {
     const fetchData = await axios.get(SummaryApi.user_Logout.url, {
       withCredentials: "include",
     });
-    console.log(fetchData);
+    
+    
 
 
     if (fetchData.data.success) {
       dispatch(setUserDetails(null));
       toast.success(fetchData.data.message);
+      navigate("/")
     }
     if (fetchData.data.error) {
       toast.error(fetchData.data.message);
@@ -55,7 +58,7 @@ const Header = () => {
       <div className=" h-full container mx-auto flex items-center px-4 justify-between">
         <div className="">
           <Link to={"/"}>
-            <Logo w={90} h={50} />
+            <p>Home</p>
           </Link>
         </div>
 
