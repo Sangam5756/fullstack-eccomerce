@@ -87,7 +87,7 @@ const Cart = () => {
     }
 
     const totalQty = data.reduce((previouseValue, currentValue) => previouseValue + currentValue.quantity, 0);
-    const totalPrice = data.reduce((previouseValue, currentValue) => previouseValue +( currentValue.quantity * currentValue.productId.sellingPrice), 0);
+    const totalPrice = data.reduce((previouseValue, currentValue) => previouseValue + (currentValue.quantity * currentValue.productId.sellingPrice), 0);
 
 
 
@@ -134,7 +134,7 @@ const Cart = () => {
                                         </p>
                                         <div className=" flex  justify-between items-center ">
                                             <p className="text-red-600 font-medium text-lg">{DisplayInrCurrency(product?.productId.sellingPrice)}</p>
-                                            
+
                                             <p className="text-slate-400 font-medium text-lg">{DisplayInrCurrency(product?.productId.sellingPrice * product?.quantity)}</p>
                                         </div>
                                         <div className="flex items-center mt-1">
@@ -161,15 +161,18 @@ const Cart = () => {
                     ) : (
                         <div className=" h-36 bg-white">
                             <h2 className="text-white bg-red-600 px-4 py-1">Summary</h2>
-                            <div>
+
+                            <div className="flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600">
                                 <p>Quantity</p>
                                 <p>{totalQty}</p>
-                                
                             </div>
-                            <div className="">
+
+                            <div className="flex items-center justify-between px-4 gap-2 font-medium text-lg text-slate-600">
                                 <p>Total Price</p>
-                            <p>{totalPrice}</p>
+                                <p>{DisplayInrCurrency(totalPrice)}</p>
                             </div>
+
+                            <button className="bg-blue-600 p-2 text-white w-full">Payments</button>
                         </div>
                     )}
                 </div>
