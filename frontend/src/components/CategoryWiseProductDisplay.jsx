@@ -10,19 +10,20 @@ const CategoryWiseProductDisplay = ({ category, heading }) => {
   const [loading, setLoading] = useState(false);
 
   const loadingList = new Array(13).fill(null);
-  const Generalcontext = useContext(Context)
   
-
-
-
+  
+  
+  
   const fetchData = async () => {
     setLoading(true);
     const categotyProduct = await FetchCategoryWiseProduct(category);
-
+    
     setData(categotyProduct.data.data);
-
+    
     setLoading(false);
   };
+  
+  const Generalcontext = useContext(Context)
     const  handleAddtoCart = async (e,id)=>{
         await addToCart(e,id);
         Generalcontext.fetchCountofProduct()

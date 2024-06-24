@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import { GrSearch, GrToast } from "react-icons/gr";
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
@@ -17,12 +17,18 @@ const Header = () => {
   const dispatch = useDispatch();
   const [menuDisplay, setMenuDisplay] = useState(false);
   const context = useContext(Context);
+  const navigate = useNavigate();
+  const searchInput = useLocation()
+  const [search ,setSearch] = useState(searchInput?.search?.split("=")[1]);
 
+  // console.log("searchInput", searchInput?.search.split("=")[1]);
+  
   const handleLogut = async () => {
     const fetchData = await axios.get(SummaryApi.user_Logout.url, {
       withCredentials: "include",
     });
     console.log(fetchData);
+
 
     if (fetchData.data.success) {
       dispatch(setUserDetails(null));
@@ -33,7 +39,16 @@ const Header = () => {
     }
   };
 
-  console.log("header add to cart Count" , )
+  const handleSearch = (e) => {
+    const { value } = e.target;
+    setSearch(value)
+    if (value) {
+      navigate(`/search?q=${value}`)
+
+    } else {
+      navigate("/search")
+    }
+  }
 
   return (
     <header className="h-16 w-full shadow-md bg-white fixed z-40">
@@ -47,8 +62,10 @@ const Header = () => {
         <div className="hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2 ">
           <input
             type="text"
+            value={search}
             placeholder="search product here... "
             className="w-full outline-none "
+            onChange={handleSearch}
           />
           <div className="text-lg min-w-[50px] h-9 bg-red-400 flex items-center justify-center rounded-r-full text-white">
             <GrSearch />
@@ -59,8 +76,8 @@ const Header = () => {
 
         <div className="flex items-center gap-7">
           <div className="relative  flex justify-center">
-            { user?._id
-                    && 
+            {user?._id
+              &&
               (
                 <div className="text-3xl  cursor-pointer relative flex justify-center " onClick={() => { setMenuDisplay((prev) => !prev) }}>
                   {user?.profilePic ? (
@@ -88,13 +105,13 @@ const Header = () => {
           {
             user?._id && (
               <Link to={"/cart"} className="text-2xl relative">
-            <span>
-              <FaShoppingCart />
-            </span>
-            <p className="bg-red-500 text-xs absolute flex items-center justify-center h-5 w-5 rounded-full -top-2 -right-3">
-              {context.cartProductCount}
-            </p>
-          </Link>
+                <span>
+                  <FaShoppingCart />
+                </span>
+                <p className="bg-red-500 text-xs absolute flex items-center justify-center h-5 w-5 rounded-full -top-2 -right-3">
+                  {context.cartProductCount}
+                </p>
+              </Link>
             )
           }
 

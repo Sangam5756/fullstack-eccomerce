@@ -55,6 +55,9 @@ const SummaryApi = {
     delete_addtoCart: {
         url: `${backendDomain}/api/delteCartProduct`,
     },
+    search_product: {
+        url: `${backendDomain}/api/search`,
+    },
 
 }
 
