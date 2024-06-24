@@ -21,6 +21,7 @@ import addToCartViewProduct from "../controller/user/addToCartViewProduct.js";
 import { updateAddCartController } from "../controller/user/updateAddCartController.js";
 import deleteAddToCart from "../controller/user/deleteAddtoCartProduct.js";
 import { searchProduct } from "../controller/product/searchProduct.js";
+import { filterProduct } from "../controller/product/filterProduct.js";
 
 router.post("/signup", userSignUpController);
 router.post("/login", userLogin);
@@ -46,4 +47,5 @@ router.get("/viewCartProduct", authToken, addToCartViewProduct);
 router.post("/UpdateCartProduct", authToken, updateAddCartController);
 router.post("/delteCartProduct", authToken, deleteAddToCart);
 router.get("/search", searchProduct);
+router.post("/filterProduct", filterProduct);
 export default router;

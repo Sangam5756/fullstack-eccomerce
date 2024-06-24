@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { dbConnect } from "./config/dbconfig.js";
 import cookieParser from "cookie-parser";
+import path, { dirname } from "path";
+
 
 dotenv.config();
 
@@ -16,10 +18,15 @@ app.use(cors({
   credentials: true
 }));
 app.use(cookieParser());
-
 const PORT = process.env.PORT || 5000;
 
+// deployement
+const __dirname = path.resolve();
+
+
+
 app.use("/api", router);
+
 
 app.listen(PORT, () => {
   console.log(`App is listening on ${PORT}`);

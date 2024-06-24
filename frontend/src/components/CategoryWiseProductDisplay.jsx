@@ -38,7 +38,7 @@ const CategoryWiseProductDisplay = ({ category, heading }) => {
 
   return (
     <div className="container mx-auto px-4 my-4   relative ">
-      <h2 className="text-2xl font-semibold py-4">{heading}</h2>
+      <h2 className="text-2xl font-semibold py-4 capitalize">{heading}</h2>
 
       <div className=" grid grid-cols-[repeat(auto-fit,minmax(300px,320px))] justify-between md:gap-6 overflow-scroll  scrollbar-none  transition-all" >
         {/* left right buttons  */}

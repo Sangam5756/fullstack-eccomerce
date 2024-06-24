@@ -58,6 +58,9 @@ const SummaryApi = {
     search_product: {
         url: `${backendDomain}/api/search`,
     },
+    filter_product: {
+        url: `${backendDomain}/api/filterProduct`,
+    },
 
 }
 
