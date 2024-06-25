@@ -12,7 +12,7 @@ node_modules
 dist
 dist-ssr
 *.local
-assest
+# assest
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
