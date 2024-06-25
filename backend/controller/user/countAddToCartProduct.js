@@ -9,7 +9,7 @@ const countAddToCart = async (req, res) => {
       userId: user,
     });
 
-    console.log(count)
+    // console.log(count)
     
 
     res.json({

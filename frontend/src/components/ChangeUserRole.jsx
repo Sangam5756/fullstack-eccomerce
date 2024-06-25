@@ -26,7 +26,7 @@ const ChangeUserRole = ({ name, email, role, onClose, userId ,callFunc}) => {
     
     })
 
-    console.log("changeUser",updatedResponse)
+    // console.log("changeUser",updatedResponse)
     if(updatedResponse.data.success){
       toast.success(updatedResponse.data.message)
       onClose()

@@ -47,7 +47,7 @@ const SignUp = () => {
     });
   };
 
-  console.log("Signup Data", data);
+  // console.log("Signup Data", data);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,7 +69,7 @@ const SignUp = () => {
         }
         
         
-        console.log("Response:", response.data);
+        // console.log("Response:", response.data);
   
       } catch (error) {
         console.error("Error:", error);

@@ -10,7 +10,7 @@ const addtoCartController = async (req, res) => {
     // const isAvailable = await Cart.deleteMany({ });
 
     
-    console.log("productavailbale",isAvailable)
+    // console.log("productavailbale",isAvailable)
 
     if (isAvailable) {
       return res.json({

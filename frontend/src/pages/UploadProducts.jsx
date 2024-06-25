@@ -34,7 +34,7 @@ const UploadProducts = ({ onClose, fetchdata }) => {
   };
 
   const handleDeleteProductImage = async (index) => {
-    console.log("Image-Index", index);
+    // console.log("Image-Index", index);
 
     const newProductImage = [...data.productImage];
     newProductImage.splice(index, 1);
@@ -49,7 +49,7 @@ const UploadProducts = ({ onClose, fetchdata }) => {
   const handleUploadProducts = async (e) => {
     const file = e.target.files[0];
     const uploadImageCloudinary = await UploadImage(file);
-    console.log(uploadImageCloudinary);
+    // console.log(uploadImageCloudinary);
 
     setData((prev) => {
       return {
@@ -77,7 +77,7 @@ const UploadProducts = ({ onClose, fetchdata }) => {
       toast.error(addProduct.data.message);
     }
 
-    console.log("Data", addProduct);
+    // console.log("Data", addProduct);
   };
 
   return (

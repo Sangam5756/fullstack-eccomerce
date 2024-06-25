@@ -11,11 +11,12 @@ const editProductController = async (req, res) => {
       }
 
     const {_id, ...resBody} = req.body;
-    console.log(req.body)
+
+    // console.log(req.body)
 
     const product = await Product.findByIdAndUpdate(_id, resBody);
       
-    console.log(product)
+    // console.log(product)
 
     res.status(200).json({
       data: product,

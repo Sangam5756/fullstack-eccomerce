@@ -23,7 +23,7 @@ const CategoryProduct = () => {
   const [sortby, setSortby] = useState("");
   const navigate = useNavigate();
 
-  console.log(sortby)
+  // console.log(sortby)
 
   const fetchdata = async () => {
     const response = await axios.post(
@@ -36,14 +36,14 @@ const CategoryProduct = () => {
       }
     );
 
-    console.log(response);
+    // console.log(response);
     setData(response?.data?.data || []);
   };
 
   const handleselectcategory = (e) => {
     const { name, value, checked } = e.target;
 
-    console.log(name, value, checked);
+    // console.log(name, value, checked);
     setSelectedCategory((prev) => {
       return {
         ...prev,

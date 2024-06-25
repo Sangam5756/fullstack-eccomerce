@@ -18,7 +18,7 @@ const SearchProduct = () => {
     const response = await axios.get(SummaryApi.search_product.url + query.search)
     setData(response?.data?.data);
     setLoading(false);
-    console.log(response)
+    // console.log(response)
 
   }
 

@@ -22,7 +22,7 @@ export const searchProduct = async (req, res) => {
       message: "search success",
     });
 
-    console.log(query);
+    // console.log(query);
   } catch (error) {
     res.json({
       message: error.message,

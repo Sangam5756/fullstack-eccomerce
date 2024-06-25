@@ -21,7 +21,7 @@ const Cart = () => {
                 "Content-Type": "application/json",
             },
         });
-        console.log("cartrespone", response)
+        // console.log("cartrespone", response)
         if (response?.data.success) {
             setData(response?.data?.data);
         }
@@ -60,7 +60,7 @@ const Cart = () => {
             fetchData()
         }
 
-        console.log(response)
+        // console.log(response)
     }
     const decreaseQty = async (id, qty) => {
         const response = await axios.post(SummaryApi.update_addtoCart.url, {
@@ -72,7 +72,7 @@ const Cart = () => {
                 "Content-Type": "Application/json"
             }
         })
-        console.log(response)
+        // console.log(response)
         if (response.data.success) {
             fetchData()
         }
@@ -91,7 +91,7 @@ const Cart = () => {
             }
         })
 
-        console.log(response)
+        // console.log(response)
         if (response.data.success) {
             fetchData()
             Generalcontext.fetchCountofProduct()

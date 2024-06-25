@@ -11,7 +11,7 @@ const UploadProductcontroller = async (req, res) => {
     const uploadProduct = await new Product(req.body);
 
     const savedProduct = await uploadProduct.save();
-    console.log(savedProduct);
+    // console.log(savedProduct);
 
     res.status(200).json({
       data: savedProduct,

@@ -39,7 +39,7 @@ const App = () => {
       withCredentials: 'include'
     })
 
-    console.log(response)
+    // console.log(response)
     setCartProductCount(response.data.data.count);
     
   }

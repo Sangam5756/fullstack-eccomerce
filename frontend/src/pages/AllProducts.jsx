@@ -14,7 +14,7 @@ const AllProducts = () => {
       withCredentials: "include",
     });
 
-    console.log(response);
+    // console.log(response);
     if (response.data.success) {
       setAllProduct(response.data.data);
     }

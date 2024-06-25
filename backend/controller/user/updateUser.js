@@ -4,10 +4,10 @@ const updateUser = async (req, res) => {
   try {
     const sessionUser = req.userId;
 
-    console.log(sessionUser);
+    // console.log(sessionUser);
 
     const { userId, email, name, role } = req.body;
-      console.log(req.body)
+      // console.log(req.body)
     const payload = {
       ...(email && { email: email }),
       ...(name && { name: name }),

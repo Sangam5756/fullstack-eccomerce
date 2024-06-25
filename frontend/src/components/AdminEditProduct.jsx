@@ -37,7 +37,7 @@ const AdminEditProduct = ({ onClose,editdata,fetchdata }) => {
   };
 
   const handleDeleteProductImage = async (index) => {
-    console.log("Image-Index", index);
+    // console.log("Image-Index", index);
 
     const newProductImage = [...data.productImage];
     newProductImage.splice(index, 1);
@@ -80,7 +80,7 @@ const AdminEditProduct = ({ onClose,editdata,fetchdata }) => {
       toast.success(editProduct.data.message);
     }
 
-    console.log(data)
+    // console.log(data)
   };
   
   return (
