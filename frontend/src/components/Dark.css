@@ -1,0 +1,20 @@
+/* styles.css */
+
+/* Light mode styles */
+body {
+    --bg-color: white;
+    --text-color: black;
+  }
+  
+  /* Dark mode styles */
+  body.dark-mode {
+    --bg-color: black;
+    --text-color: white;
+  }
+  
+  /* Apply the variables */
+  body, .container {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  

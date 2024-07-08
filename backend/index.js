@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://fullstack-eccomerce.onrender.com", // Your frontend URL
+    origin: process.env.FRONTEND_URL, // Your frontend URL
     optionsSuccessStatus: 200,
     credentials: true,
   })

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { GrSearch, GrToast } from "react-icons/gr";
 import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
@@ -9,6 +9,9 @@ import { toast } from "react-toastify";
 import { setUserDetails } from "../store/userSlice";
 import ROLE from "../common/ROLE"
 import Context from "../context";
+import { MdLightMode } from "react-icons/md";
+import { MdDarkMode } from "react-icons/md";
+import "./Dark.css"
 
 
 const Header = () => {
@@ -22,7 +25,9 @@ const Header = () => {
   const searchQuery = searchUrl.getAll("q")
 
   const [search ,setSearch] = useState(searchQuery);
-
+  const [dark, setDark] = useState(
+    () => localStorage.getItem("dark-mode") === "true"
+  );
   
   const handleLogut = async () => {
     const fetchData = await axios.get(SummaryApi.user_Logout.url, {
@@ -53,6 +58,12 @@ const Header = () => {
     }
   }
 
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", dark);
+    localStorage.setItem("dark-mode", dark);
+  }, [dark]);
+
+
   return (
     <header className="h-16 w-full shadow-md bg-white fixed z-40">
       <div className=" h-full container mx-auto flex items-center px-4 justify-between">
@@ -79,6 +90,16 @@ const Header = () => {
 
         <div className="flex items-center gap-7">
           <div className="relative  flex justify-center">
+
+          <div
+              className="text-4xl cursor-pointer relative flex items-center px-2 justify-center"
+              onClick={() => setDark((prev) => !prev)}
+            >
+              {dark ? <MdDarkMode /> : <MdLightMode />}
+            </div>
+
+
+          
             {user?._id
               &&
               (

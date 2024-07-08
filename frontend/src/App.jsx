@@ -53,6 +53,10 @@ const App = () => {
     
 
   }, [])
+  // useEffect(() => {
+  //   document.body.classList.toggle("dark-mode", dark);
+  //   localStorage.setItem("dark-mode", dark);
+  // }, [dark]);
 
 
   return (
