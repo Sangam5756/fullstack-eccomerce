@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin:"https://fullstack-eccomerce.onrender.com", // Your frontend URL
+    origin: "https://shopverse5756.onrender.com/", // Your frontend URL
     // optionsSuccessStatus: 200,
     credentials: true,
   })
@@ -32,7 +32,12 @@ app.use("/api", router);
 //   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 // });
 
-app.listen(PORT, () => {
-  console.log(`App is listening on ${PORT}`);
-  dbConnect();
-});
+dbConnect()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`App is listening on ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
