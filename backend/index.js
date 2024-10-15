@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { dbConnect } from "./config/dbconfig.js";
 import cookieParser from "cookie-parser";
-import path, { dirname } from "path";
+// import path, { dirname } from "path";
 
 dotenv.config();
 
@@ -25,12 +25,12 @@ const PORT = process.env.PORT || 5000;
 app.use("/api", router);
 
 // deployement
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
+// const __dirname = path.resolve();
+// app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
-app.use("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-});
+// app.use("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+// });
 
 app.listen(PORT, () => {
   console.log(`App is listening on ${PORT}`);
