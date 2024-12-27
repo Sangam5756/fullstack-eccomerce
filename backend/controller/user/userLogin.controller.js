@@ -30,6 +30,7 @@ export const userLogin = async (req, res) => {
       const tokenOption ={
         httpOnly:true,
         secure:true,
+        sameSite:'None'
         
       }
 
