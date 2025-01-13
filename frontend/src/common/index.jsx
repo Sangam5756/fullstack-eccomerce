@@ -1,5 +1,5 @@
 // const backendDomain = "http://localhost:5001"
-const backendDomain = "https://shopverse5756backend.onrender.com"
+const backendDomain = "https://fullstack-eccomerce.vercel.app"
 
 const SummaryApi = {
 
