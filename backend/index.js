@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://shopverse5756.onrender.com", // Your frontend URL
+    origin: "https://shopverse.sangammundhe.site", // Your frontend URL
     // optionsSuccessStatus: 200,
     credentials: true,
   })
