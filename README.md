@@ -2,7 +2,7 @@
 
 A modern, production-ready full-stack e-commerce web application built with the **MERN** stack (MongoDB, Express.js, React, Node.js). It features secure JWT-based authentication, an admin dashboard for product and user management, a shopping cart, product search and filtering, and full Vercel deployment support.
 
-🌐 **Live Demo:** [https://shopverse.sangammundhe.site](https://shopverse5756.onrender.com)
+🌐 **Live Demo:** [https://shopverse5756.onrender.com](https://shopverse5756.onrender.com)
 
 ---
 
